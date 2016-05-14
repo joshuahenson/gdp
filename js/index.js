@@ -4,7 +4,6 @@ function buildChart(dataset) {
     ["2015-04-01", 17913.7], ... */
     var w = 700;
     var h = 400;
-    var padding = 1;
     //divisor scales data to fit in height. Likely better way when I learn more
     var divisor = d3.max(dataset, function(array) {
         return array[1];
@@ -20,7 +19,7 @@ function buildChart(dataset) {
             .attr('y', function(d,i) {
                 return h - (d[1] / divisor);
             })
-            .attr('width', w / dataset.length - padding)
+            .attr('width', w / dataset.length)
             .attr('height', function(d) {
                 return d[1] / divisor;
             });
