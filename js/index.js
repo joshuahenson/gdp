@@ -9,7 +9,7 @@ function buildChart(ds) {
                   .domain([0, d3.max(ds, function(d) {return d[1];})])
                   .range([0, h])
 
-    var svg = d3.select('#root').append('svg').attr({width: w, height: h});
+    var svg = d3.select('#root').append('svg').attr({width: w, height: h, class: 'chart'});
     svg.selectAll('rect')
         .data(ds)
         .enter()
