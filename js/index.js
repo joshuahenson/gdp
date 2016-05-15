@@ -1,28 +1,29 @@
 /*global d3*/
-function buildChart(dataset) {
-    /* dataset is a nested array containing text date and numeric value
+function buildChart(ds) {
+    /* ds is a nested array containing text date and numeric value
     ["2015-04-01", 17913.7], ... */
     var w = 700;
     var h = 400;
-    //divisor scales data to fit in height. Likely better way when I learn more
-    var divisor = d3.max(dataset, function(array) {
-        return array[1];
-    }) / h;
+
+    var yScale = d3.scale.linear()
+                  .domain([0, d3.max(ds, function(d) {return d[1];})])
+                  .range([0, h])
+
     var svg = d3.select('#root').append('svg').attr({width: w, height: h});
     svg.selectAll('rect')
-        .data(dataset)
+        .data(ds)
         .enter()
         .append('rect')
             .attr('x', function(d,i) {
-                return (i * w / dataset.length);
+                return (i * w / ds.length);
             })
-            .attr('y', function(d,i) {
-                return h - (d[1] / divisor);
+            .attr('y', function(d) {
+                return h - yScale(d[1]);
             })
-            .attr('width', w / dataset.length)
-            .attr('height', function(d) {
-                return d[1] / divisor;
-            });
+            .attr('width', w / ds.length)
+            .attr('height', function(d){
+              return yScale(d[1]);
+            })
 }
 d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json', function(error, data) {
   if(error) {
