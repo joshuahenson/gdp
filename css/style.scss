@@ -1,11 +1,41 @@
 // compileExpanded: $1.css
 
+// *********************** svg styles*********************
 .chart rect {
   fill: cornflowerblue;
 }
 
-.description {
-  margin-top: 10px;
+.axis path,
+.axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+}
+
+.axis text,
+.chart text {
   font-family: sans-serif;
-  font-size: 10px;
+  font-size: 11px;
+}
+
+// ********************end svg styles*********************
+
+.container {
+  // width set dynamically via d3
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  margin: 0 auto;
+  font-family: sans-serif;
+  color: darken(cornflowerblue, 20%);
+}
+
+.description {
+  text-align: center;
+  margin: 10px auto;
+  font-family: sans-serif;
+  font-size: 11px;
+  color: darken(cornflowerblue, 20%);
 }
