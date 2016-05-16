@@ -1,7 +1,7 @@
 /* global d3 */
-// temp manual assignment of width
+
 var w = 1000;
-var h = 700;
+var h = 600;
 
 d3.select('.container')
   .style('width', w + 'px');
@@ -15,11 +15,12 @@ function buildChart(ds) {
   ["2015-04-01", 17913.7], ... */
 
   function formatTooltip(num, date) {
-    var formatNum = d3.format(',.1f');
+    var formatNum = d3.format('$,.1f');
     var year = date.slice(0, 4);
     var qtr = Math.ceil(date.slice(5, 7) / 12 * 4);
-    return ('$' + formatNum(num) + ' billion<br/>' + year + ' Q' + qtr);
+    return (formatNum(num) + ' billion<br/>' + year + ' Q' + qtr);
   }
+
   var margin = {
     top: 5,
     right: 10,
@@ -33,15 +34,14 @@ function buildChart(ds) {
 
   var xScale = d3.scale.ordinal()
     .domain(d3.range(ds.length))
-    .rangeBands([margin.left + 1, w - margin.right - 1]);
+    .rangeBands([margin.left + 1, w - margin.right]);
 
-  // todo fix hardcode
   var minDate = new Date(ds[0][0]);
   var maxDate = new Date(ds[ds.length - 1][0]);
 
   var xTimeScale = d3.time.scale()
     .domain([minDate, maxDate])
-    .range([margin.left + 1, w - margin.right - 1]);
+    .range([margin.left, w - margin.right]);
 
   var yScale = d3.scale.linear()
     .domain([0, d3.max(ds, function(d) {
@@ -97,14 +97,14 @@ function buildChart(ds) {
     .attr('y', function(d) {
       return yScale(d[1]);
     })
-    .attr('width', xScale.rangeBand())
+    .attr('width', Math.ceil(xScale.rangeBand())) // ceil to smooth lines from float pt between bars
     .attr('height', function(d) {
       return (yScale(0) - yScale(d[1]));
     })
     .on('mouseover', function(d) {
       tooltip.transition()
         .duration(500)
-        .style('opacity', 0.85);
+        .style('opacity', 1);
       tooltip.html(formatTooltip(d[1], d[0]))
         .style('left', (d3.event.pageX + 5) + 'px')
         .style('top', (d3.event.pageY - 40) + 'px');
@@ -117,9 +117,8 @@ function buildChart(ds) {
 }
 d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json',
 function(error, data) {
-  if (error) {
-    console.log(error);
-  }
-  // console.log(data);
+  // if (error) {
+  //   console.log(error);
+  // }
   buildChart(data.data);
 });
