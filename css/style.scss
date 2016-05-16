@@ -1,11 +1,13 @@
 // compileExpanded: $1.css
+$primary: mediumpurple;
+$secondary: darken(mediumpurple, 20%);
 
 // *********************** svg styles*********************
 
 .chart rect {
-  fill: cornflowerblue;
+  fill: $primary;
   &:hover {
-    fill: darken(cornflowerblue, 20%);
+    fill: $secondary;
   }
 }
 
@@ -25,19 +27,24 @@
 // ********************end svg styles*********************
 
 html {
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 .container {
   // width set dynamically via d3
   margin: 0 auto;
+  border: 1px solid $primary;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 h1 {
   text-align: center;
   margin: 0 auto;
   font-family: sans-serif;
-  color: darken(cornflowerblue, 20%);
+  color: $secondary;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
 }
 
 .tooltip {
