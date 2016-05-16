@@ -1,8 +1,12 @@
 // compileExpanded: $1.css
 
 // *********************** svg styles*********************
+
 .chart rect {
   fill: cornflowerblue;
+  &:hover {
+    fill: darken(cornflowerblue, 20%);
+  }
 }
 
 .axis path,
@@ -20,6 +24,10 @@
 
 // ********************end svg styles*********************
 
+html {
+  margin-top: 20px;
+}
+
 .container {
   // width set dynamically via d3
   margin: 0 auto;
@@ -32,10 +40,15 @@ h1 {
   color: darken(cornflowerblue, 20%);
 }
 
-.description {
-  text-align: center;
-  margin: 10px auto;
+.tooltip {
+  position: absolute;
+  max-width: 200px;
+  height: auto;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
   font-family: sans-serif;
-  font-size: 11px;
-  color: darken(cornflowerblue, 20%);
+  font-size: 12px;
 }
