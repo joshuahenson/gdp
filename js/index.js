@@ -24,7 +24,7 @@ function buildChart(ds) {
   var margin = {
     top: 5,
     right: 10,
-    bottom: 30,
+    bottom: 20,
     left: 60
   };
 
@@ -77,14 +77,6 @@ function buildChart(ds) {
   svg.append('g').call(yAxis)
     .attr('class', 'axis')
     .attr('transform', 'translate(' + margin.left + ', 0)');
-
-  // append y label
-  svg.append('text')
-    .attr('text-anchor', 'middle')
-    .attr('transform',
-      'translate(' + ((w - margin.left - margin.right) / 2 + margin.left) +
-      ', ' + h + ')')
-    .text('Year');
 
   // append bars
   svg.selectAll('rect')
